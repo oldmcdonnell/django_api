@@ -14,9 +14,50 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+
+from django.urls import path, include
+from rest_framework import routers
+
+from api_lesson_app.views import *
+
+router = routers.DefaultRouter()
+
+router.register(r'students', StudentViewSet)
+router.register(r'instructors', InstructorViewSet)
+router.register(r'courses', CourseViewSet)
+router.register(r'grades', GradeViewSet)
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', include(router.urls))
 ]
+
+
+# get is read // like in axios weather app the .get function
+# post is create
+# put is update
+# delete is delete
+
+
+'''
+    GET
+    https://the-name-of-my-students/students/
+    a list of all students
+
+    GET
+    /students/{id}
+    a specific student
+
+    POST
+    /students/
+    create a new student
+
+    PUT
+    /studnets/{id}
+    update a specific student
+
+    DELETE
+    /students/{id}
+    delete a specific student
+
+'''
